@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
 """ An attempt to solve the WordSpin problem on Kattis
-Note, this seems to produce correct output, I just can't get it to do it fast enough.
-Testing against two 10 million character strings gets lands in about 2.5 seconds, give or take.
+Note, this seems to produce correct output, I just can't get it to do it fast enough as python3, only as python2 (which uses pypy)
+Testing against two 10 million character strings in python3 gets lands in about 2.5 seconds, give or take.
 
 I might be able to parallelise this, but I wonder about the overhead """
+
+
 
 import sys
 import logging
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(funcName)s - %(message)s')
+
+
 
 def minDistance(word1, word2):
-    if len(word1) != len(word2):
-        raise Exception("Words must be of equal length")
-    word_length = len(word1)
+    word_length = max([len(word1), len(word2)])
     direction = [0] * (word_length+1)
     distance = [0] * word_length
 
@@ -41,18 +44,21 @@ def minDistance(word1, word2):
     for i in range(word_length):
         # If neighbours need to go in different directions
         # just count the steps
-        if direction[i] != direction[i+1]:
-            steps += distance[i]
-        else:
-            if distance[i] > distance[i+1]:
-                steps += (distance[i] - distance[i+1])
+        try:
+            if direction[i] != direction[i+1]:
+                steps += distance[i]
+            else:
+                if distance[i] > distance[i+1]:
+                    steps += (distance[i] - distance[i+1])
+        except IndexError:
+            # Doesn't have a counterpart, guess there's nothing to do?
+            pass
 
     return steps
 
 def main():
     word1, word2 = sys.stdin.readline().rstrip().split(" ")
     print(minDistance(word1, word2))
-
 
 if __name__ == "__main__":
     main()
