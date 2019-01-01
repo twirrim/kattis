@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-""" An attempt to solve the WordSpin problem on Kattis """
+""" An attempt to solve the WordSpin problem on Kattis
+Note, this seems to produce correct output, I just can't get it to do it fast enough.
+Testing against two 10 million character strings gets lands in about 2.5 seconds, give or take.
+
+I might be able to parallelise this, but I wonder about the overhead """
 
 import sys
 import logging
 
 logging.basicConfig(level=logging.INFO)
-
 
 def minDistance(word1, word2):
     if len(word1) != len(word2):
@@ -15,6 +18,7 @@ def minDistance(word1, word2):
     distance = [0] * word_length
 
     # Find out steps between each individual letter
+    logging.info("Calculating basic distances")
     for i in range(word_length):
         # ord returns an int, e.g. ord("a") = 97.
         # In this situation, we can rely on it to measure distance
@@ -24,30 +28,24 @@ def minDistance(word1, word2):
         # Putting this logic later made for much harder to read code,
         # at a miniscule trade off of better memory consumption
         if distance[i] > 0:
-            logging.info("Going forwards")
+            # Going forwards
             direction[i] += 1
         if distance[i] < 0:
-            logging.info("Going backwards")
+            # Going backwards
             direction[i] -= 1
             distance[i] = abs(distance[i])
 
     direction[word_length] = 0
-    logging.info("distance:{}\tdirection:{}".format(distance, direction))
     steps = 0
+    logging.info("Working out the number of steps")
     for i in range(word_length):
         # If neighbours need to go in different directions
         # just count the steps
         if direction[i] != direction[i+1]:
-            logging.info("Neighbours don't need to go the same way! Adding {}".format(
-                abs(distance[i])))
             steps += distance[i]
         else:
-            logging.info("Neighbours match")
             if distance[i] > distance[i+1]:
-                logging.info("{} > {}.  Adding first".format(distance[i], distance[i+1]))
                 steps += (distance[i] - distance[i+1])
-            else:
-                logging.info("{} < {}.  Skipping".format(distance[i], distance[i+1]))
 
     return steps
 
