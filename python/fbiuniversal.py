@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-""" An Attempt to solve the FBI Universal Control Numbers problem on Kattis """
+""" An Attempt to solve the FBI Universal Control Numbers problem on Kattis
+Passes 1, fails 2 """
 
 import sys
 
