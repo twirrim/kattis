@@ -8,10 +8,15 @@ trans = {'B': '8', 'G': 'C', 'I': '1', 'O': '0',
          'Q': '0', 'S': '5', 'U': 'V', 'Y': 'V', 'Z': '2'}
 
 reference = "0123456789ACDEFHJKLMNPRTVWX"
+normal = "0123456789ABCDEFGHIJKLMNOPQ"
 
 def integer_to_base_27(number):
-    # python makes this easy!
-    return int(number, 27)
+    expandeducn = list(number)
+    normalucn = []
+    for i, letter in enumerate(expandeducn):
+        normalucn.append(normal[reference.index(letter)])
+
+    return int(''.join(normalucn), 27)
 
 def repair_ucn(ucn):
     ucn = list(ucn)
@@ -31,12 +36,36 @@ def get_checkbit(ucn):
 
     return checksum
 
-def has_valid_characters(ucn):
+def is_valid_ucn(ucn):
+    if ucn == '' or len(ucn) != 9:
+        return False
     ref = set(list(reference))
     for letter in ucn:
         if not letter in ref and not letter in trans:
             return False
     return True
+
+def process_line(line):
+    # Get the data
+    try:
+        testcase, ucn = line.rstrip().split(" ")
+    except ValueError:
+        print("{} Invalid".format(line.rstrip()))
+        return
+
+    if not is_valid_ucn(ucn):
+        print("{} Invalid".format(testcase))
+        return
+
+    ucn = repair_ucn(ucn)
+    checkbit = get_checkbit(ucn)
+    checksum = integer_to_base_27(ucn[:8])
+
+    if str(checksum)[-1:] == str(checkbit):
+        # Number is good!
+        print(testcase, checksum)
+    else:
+        print("{} Invalid".format(testcase))
 
 
 def main():
@@ -44,21 +73,7 @@ def main():
     sys.stdin.readline()
     # Loop through the test cases
     for line in sys.stdin.readlines():
-        # Get the data
-        testcase, ucn = line.rstrip().split(" ")
-        if not has_valid_characters(ucn):
-            print("{} Invalid".format(testcase))
-            break
-
-        ucn = repair_ucn(ucn)
-        checkbit = get_checkbit(ucn)
-        checksum = integer_to_base_27(ucn[:8])
-
-        if str(checksum)[-1:] == str(checkbit):
-            # Number is good!
-            print(testcase, checksum)
-        else:
-            print("{} Invalid".format(testcase))
+        process_line(line)
 
 if __name__ == "__main__":
     main()
