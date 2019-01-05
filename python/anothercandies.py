@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-""" An attempt to solve the Another Candies problem on Kattis
-I should really do this in one loop. """
+""" An attempt to solve the Another Candies problem on Kattis """
 
 import sys
 
@@ -21,19 +20,16 @@ def main():
     sys.stdin.readline()
     # We do care about the rest
     data = sys.stdin.readlines()
-    test_cases = []
     test_case = []
     for line in data:
         line = line.rstrip()
         if not line:
             if test_case:
-                test_cases.append(test_case)
+                confirm_its_possible(test_case)
                 test_case = []
         else:
             test_case.append(line)
-    test_cases.append(test_case)
-    for test_case in test_cases:
-        confirm_its_possible(test_case)
+    confirm_its_possible(test_case)
 
 
 if __name__ == "__main__":
