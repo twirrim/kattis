@@ -4,20 +4,18 @@
 import sys
 
 
-data = list(sys.stdin.readline().rstrip())
+def process_line(line):
+    output = []
 
-output = []
-
-index = 0
-while True:
-    try:
-        if data[index] != "<":
-            output.append(data[index])
+    for index in range(len(line)):
+        if line[index] == "<":
+            output.pop()
         else:
-            output.pop(len(output) - 1)
-        index += 1
-    except IndexError:
-        # Got to the end
-        break
-    
-print(''.join(output))
+            output.append(line[index])
+    return ''.join(output)
+
+
+if __name__ == "__main__":
+    data = list(sys.stdin.readline().rstrip())
+
+    print(process_line(data))
