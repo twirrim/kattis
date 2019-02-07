@@ -5,7 +5,7 @@ fn main() {
     // set things up
     let stdin = io::stdin();
     let line = stdin.lock().lines().next().unwrap().unwrap();
-    let mut split = line.split(" ");
+    let mut split = line.split(' ');
     let n: usize = split.next().unwrap().parse::<usize>().unwrap();
     let mut found: HashSet<usize> = HashSet::new();
     for raw_line in stdin.lock().lines() {
