@@ -13,7 +13,7 @@ fn main() {
 
     for raw_line in stdin.lock().lines() {
         let line = raw_line.unwrap();
-        let mut split = line.split(" ");
+        let mut split = line.split(' ');
         let user = split.next().unwrap();
         for entry in split{
             let user_unique_words = users_words.entry(String::from(user)).or_insert(HashSet::new());

@@ -2,7 +2,7 @@ use std::io::{self, BufRead, Write};
 
 fn is_vowel(letter: u8) -> bool {
     // Strings are utf8.
-    return b"aeiouy".contains(&letter);
+    b"aeiouy".contains(&letter)
 }
 
 fn pig_word(word: &str) -> String {
@@ -18,7 +18,7 @@ fn pig_word(word: &str) -> String {
         }
         index += 1;
     }
-    return word.to_string()
+    word.to_string()
 }
 
 fn folder(mut current: String, next: String) -> String {

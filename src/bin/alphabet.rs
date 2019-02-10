@@ -34,7 +34,7 @@ fn lis_length(a: Vec<u8>) -> usize {
             max = q[i];
         }
     }
-    return max;
+    max
 }
 
 fn main() {
