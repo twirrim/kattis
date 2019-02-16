@@ -3,33 +3,33 @@ use std::collections::HashSet;
 
 // from https://en.wikipedia.org/wiki/Heap%27s_algorithm
 fn permutations(n : usize, mut a : Vec<usize>) -> HashSet<Vec<usize>> {
-	let mut c = Vec::with_capacity(n);
-	let mut output = HashSet::new();
-	for _ in 0..n{
-		c.push(0);
-	};
-	output.insert(a.to_vec());
-	let mut i = 0;
-	while i < n {
-		if c[i] < i {
-			if i & 1 == 0{  // if i is even
-				let zero = a[0];
-				a[0] = a[i];
-				a[i] = zero;
-			} else {
-				let zero = a[c[i]];
-				a[c[i]] = a[i];
-				a[i] = zero;
-			}
-			output.insert(a.to_vec());
-			c[i] += 1;
-			i = 0;
-		} else {
-		    c[i] = 0;
-		    i += 1;
+    let mut c = Vec::with_capacity(n);
+    let mut output = HashSet::new();
+    for _ in 0..n{
+        c.push(0);
+    };
+    output.insert(a.to_vec());
+    let mut i = 0;
+    while i < n {
+        if c[i] < i {
+            if i & 1 == 0{  // if i is even
+                let zero = a[0];
+                a[0] = a[i];
+                a[i] = zero;
+            } else {
+                let zero = a[c[i]];
+                a[c[i]] = a[i];
+                a[i] = zero;
+            }
+            output.insert(a.to_vec());
+            c[i] += 1;
+            i = 0;
+        } else {
+            c[i] = 0;
+            i += 1;
         }
-	}
-	output
+    }
+    output
 }
 
 
@@ -64,9 +64,9 @@ fn is_valid_date(year: usize, month: usize, day: usize) -> bool {
     } else if month == 2 {
         if is_leap_year(year){
             return day <= 29
-		}
+        }
         return day <= 28
-	}
+    }
     false
 }
 
