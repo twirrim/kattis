@@ -21,7 +21,10 @@ fn permutations(n : usize, mut a : Vec<usize>) -> HashSet<Vec<usize>> {
                 a[c[i]] = a[i];
                 a[i] = zero;
             }
-            output.insert(a.to_vec());
+            // polluting this with application specific logic to avoid expensive hashing operations
+            if a[0] >= 2 && a[4] <= 1 && a[6] <= 3 {
+                output.insert(a.to_vec());
+            };
             c[i] += 1;
             i = 0;
         } else {
