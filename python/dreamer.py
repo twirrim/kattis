@@ -1,6 +1,6 @@
 import sys
 from itertools import permutations
-import logging
+from multiprocessing.dummy import Process, Queue
 
 def is_leap_year(year):
     if year % 4 != 0:
@@ -39,30 +39,43 @@ def evaluate_perm(perm):
         return output
     return None
 
+def handle_test_case(test_case, case_number, queue):
+    digits = test_case.replace(" ", "")
+    possibles = set()
+    for perm in set(permutations(digits)):
+        if int(perm[0]) < 2:
+            continue
+        result = evaluate_perm(perm)
+        if result:
+            possibles.add(result)
+    if possibles:
+        poss = sorted(possibles)[0]
+        output = (case_number,  "{} {} {} {}".format(len(possibles), poss[6:8], poss[4:6], poss[0:4]))
+        queue.put(output)
+    else:
+        output = (case_number, "0")
+        queue.put(output)
 
 def main(test_cases):
+    procs = []
+    queue = Queue()
+    case_number = 0
     for test_case in test_cases:
-        digits = test_case.replace(" ", "")
-        possibles = set()
-        seen = set()
-        for perm in permutations(digits):
-            if not perm in seen:
-                seen.add(perm)
-                result = evaluate_perm(perm)
-                if result:
-                    possibles.add(result)
-            else:
-                pass
-        if possibles:
-            poss = sorted(possibles)[0]
-            print("{} {} {} {}".format(
-                len(possibles), poss[6:8], poss[4:6], poss[0:4]))
-        else:
-            print(len(possibles))
+        proc = Process(target=handle_test_case, args=(test_case, case_number, queue))
+        procs.append(proc)
+        case_number += 1
+    for proc in procs:
+        proc.start()
+    for proc in procs:
+        proc.join()
+
+    results = [queue.get() for proc in procs]
+    results.sort()
+    for r in results:
+        print(r[1])
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
     throwaway = sys.stdin.readline()
     data = [line.rstrip() for line in sys.stdin.readlines()]
     main(data)
