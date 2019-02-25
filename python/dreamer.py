@@ -43,7 +43,7 @@ def handle_test_case(test_case, case_number, queue):
     digits = test_case.replace(" ", "")
     possibles = set()
     for perm in set(permutations(digits)):
-        if int(perm[0]) < 2:
+        if int(perm[0]) < 2 or int(perm[4]) > 1 or int(perm[6]) > 3:
             continue
         result = evaluate_perm(perm)
         if result:
