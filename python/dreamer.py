@@ -1,34 +1,18 @@
 import sys
+import calendar
+from datetime import date
 from itertools import permutations
 from multiprocessing.dummy import Process, Queue
 
 def is_leap_year(year):
-    if year % 4 != 0:
-        return False
-    if year % 400 == 0:
-        return True
-    if year % 100 == 0:
-        return False
-    return True
+    return calendar.isleap(year)
 
 def is_valid_date(day, month, year):
-    # Simple cases first
-    if (day == 0 or day > 31):
+    try:
+        date(year, month, day)
+        return True
+    except ValueError:
         return False
-    if (month == 0 or month > 12):
-        return False
-    if (year < 2000):
-        return False
-
-    if month in [1, 3, 5, 7, 8, 10, 12]:
-        return day <= 31
-    elif month in [4, 6, 9, 11]:
-        return day <= 30
-    elif month == 2:
-        if is_leap_year(year):
-            return day <= 29
-        return day <= 28
-    return False
 
 def evaluate_perm(perm):
     day = int(''.join(perm[6:8]))
@@ -50,7 +34,8 @@ def handle_test_case(test_case, case_number, queue):
             possibles.add(result)
     if possibles:
         poss = sorted(possibles)[0]
-        output = (case_number,  "{} {} {} {}".format(len(possibles), poss[6:8], poss[4:6], poss[0:4]))
+        output = (case_number,
+                  "{} {} {} {}".format(len(possibles), poss[6:8], poss[4:6], poss[0:4]))
         queue.put(output)
     else:
         output = (case_number, "0")
