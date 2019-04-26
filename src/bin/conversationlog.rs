@@ -1,7 +1,7 @@
-use std::collections::BTreeMap;
-use std::collections::HashMap;
-use std::collections::HashSet;
-use std::io::{self, BufRead};
+use std::{
+    collections::{BTreeMap, HashMap, HashSet},
+    io::{self, BufRead},
+};
 
 fn main() {
     // set things up

@@ -1,5 +1,7 @@
-use std::collections::HashSet;
-use std::io::{self, BufRead};
+use std::{
+    collections::HashSet,
+    io::{self, BufRead},
+};
 
 fn main() {
     // set things up

@@ -1,5 +1,7 @@
-use std::collections::HashSet;
-use std::io::{self, BufRead};
+use std::{
+    collections::HashSet,
+    io::{self, BufRead},
+};
 
 // from https://en.wikipedia.org/wiki/Heap%27s_algorithm
 fn permutations(n: usize, mut a: Vec<usize>) -> HashSet<Vec<usize>> {
