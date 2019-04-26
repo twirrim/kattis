@@ -19,17 +19,17 @@ use std::io::{self, BufRead};
 fn lis_length(a: Vec<u8>) -> usize {
     let n = a.len();
     let mut q = vec![0; n];
-    for k in 0..n{
+    for k in 0..n {
         let mut max = 0;
-        for j in 0..k{
-            if a[k] > a[j] && q[j] > max{
+        for j in 0..k {
+            if a[k] > a[j] && q[j] > max {
                 max = q[j];
             };
-        };
+        }
         q[k] = max + 1;
-    };
+    }
     let mut max = 0;
-    for i in 0..n{
+    for i in 0..n {
         if q[i] > max {
             max = q[i];
         }

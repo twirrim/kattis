@@ -1,7 +1,7 @@
-use std::io::{self, BufRead};
-use std::collections::HashSet;
-use std::collections::HashMap;
 use std::collections::BTreeMap;
+use std::collections::HashMap;
+use std::collections::HashSet;
+use std::io::{self, BufRead};
 
 fn main() {
     // set things up
@@ -15,8 +15,10 @@ fn main() {
         let line = raw_line.unwrap();
         let mut split = line.split(' ');
         let user = split.next().unwrap();
-        for entry in split{
-            let user_unique_words = users_words.entry(String::from(user)).or_insert(HashSet::new());
+        for entry in split {
+            let user_unique_words = users_words
+                .entry(String::from(user))
+                .or_insert(HashSet::new());
             let count = word_count.entry(String::from(entry)).or_insert(0);
             *count += 1;
             unique_word_list.insert(String::from(entry));
@@ -25,7 +27,6 @@ fn main() {
     }
     // we only care about words used by all users, so we figure out an intersection of all the hash
     // sets
-    
 
     for (_user, words) in &users_words {
         unique_word_list = unique_word_list.intersection(&words).cloned().collect();

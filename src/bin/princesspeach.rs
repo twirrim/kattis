@@ -1,5 +1,5 @@
-use std::io::{self, BufRead};
 use std::collections::HashSet;
+use std::io::{self, BufRead};
 
 fn main() {
     // set things up
@@ -11,8 +11,8 @@ fn main() {
     for raw_line in stdin.lock().lines() {
         found.insert(raw_line.unwrap().parse::<usize>().unwrap());
     }
-    for i in 0..n{
-        if !found.contains(&i){
+    for i in 0..n {
+        if !found.contains(&i) {
             println!("{}", i.to_string());
         }
     }

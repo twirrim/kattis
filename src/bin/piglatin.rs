@@ -8,7 +8,7 @@ fn is_vowel(letter: u8) -> bool {
 fn pig_word(word: &str) -> String {
     let mut index = 0;
     for &letter in word.as_bytes() {
-        if is_vowel(letter){
+        if is_vowel(letter) {
             if index == 0 {
                 return format!("{}{}", word, "yay");
             } else {

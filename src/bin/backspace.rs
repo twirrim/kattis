@@ -6,10 +6,10 @@ fn main() {
     // Get the Input
     let data = stdin.lock().lines().next().unwrap().unwrap();
     let line = data.into_bytes();
-    let mut output = vec!();
-    for character in &line{
+    let mut output = vec![];
+    for character in &line {
         // 60 is the < symbol
-        if *character == 60 as u8{
+        if *character == 60 as u8 {
             output.pop();
         } else {
             output.push(*character);

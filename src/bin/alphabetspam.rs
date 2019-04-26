@@ -24,11 +24,13 @@ fn main() {
         } else {
             symbol_count += 1.0;
         };
-    };
+    }
     let ratio_per_letter = 1.0 / length;
-    println!("{:.15}\n{:.15}\n{:.15}\n{:.15}",
-             ratio_per_letter * whitespace_count,
-             ratio_per_letter * lower_count,
-             ratio_per_letter * upper_count,
-             ratio_per_letter * symbol_count);
+    println!(
+        "{:.15}\n{:.15}\n{:.15}\n{:.15}",
+        ratio_per_letter * whitespace_count,
+        ratio_per_letter * lower_count,
+        ratio_per_letter * upper_count,
+        ratio_per_letter * symbol_count
+    );
 }

@@ -12,6 +12,6 @@ fn main() {
         if entry.parse::<i32>().unwrap() < 0 {
             count += 1;
         }
-    };
+    }
     println!("{}", count);
 }
