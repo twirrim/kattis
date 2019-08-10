@@ -1,5 +1,5 @@
 # kattis
-My answers to Kattis problems.  Mix of Python and Rust
+My answers to Kattis problems.  Mix of Python, Rust, and C.
 
 
 
