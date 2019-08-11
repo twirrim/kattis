@@ -3,7 +3,7 @@
 
 int main(void){
     int x, y;
-    scanf("%d\n%d", &x, &y);
+    while(scanf("%d\n%d", &x, &y) == 2)
     if (x < 0){
         if (y > 0){
             printf("2\n");
