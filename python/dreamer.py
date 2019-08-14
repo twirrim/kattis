@@ -4,9 +4,6 @@ from datetime import date
 from itertools import permutations
 from multiprocessing.dummy import Process, Queue
 
-def is_leap_year(year):
-    return calendar.isleap(year)
-
 def is_valid_date(day, month, year):
     try:
         date(year, month, day)
